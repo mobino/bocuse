@@ -31,6 +31,17 @@ module Bocuse
       __configuration__
     end
     
+    # Evaluates all files.
+    #
+    # Retrieve the found configurations via
+    # Nodes.find pattern_or_name
+    #
+    def evaluate_all dir = ::File.expand_path('config/nodes', Dir.pwd)
+      Dir[::File.join(dir, '**', '*.rb')].each do |filename|
+        evaluate filename
+      end
+    end
+    
     # Include the given template name.
     #
     # Note: This could be pushed to the configuration.
@@ -45,13 +56,15 @@ module Bocuse
     
     # The files read by #evaluate will trigger these methods.
     #
-    # TODO Do something with the name?
-    #
     def node name = nil
+      yield __configuration__
+      Nodes.put name, __configuration__ # Note: Cache this node.
+      __configuration__
+    end
+    def template name = nil
       yield __configuration__
       __configuration__
     end
-    alias template node
     
     # Cook adds to the toplevel recipes of this file's configuration.
     #

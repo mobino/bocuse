@@ -2,7 +2,7 @@
 #
 require 'spec_helper'
 
-describe Bocuse::Configuration do
+describe 'complex example with templates' do
   
   describe 'loading a specific file' do
     it 'works' do
