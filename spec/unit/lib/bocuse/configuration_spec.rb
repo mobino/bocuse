@@ -6,6 +6,16 @@ describe Bocuse::Configuration do
 
   let(:configuration) { described_class.new }
   
+  describe 'nil values' do
+    # TODO Should they be ignored?
+    #
+    it 'will not be ignored (yet)' do
+      something = configuration.something
+      
+      configuration.to_h.should == { :something => nil }
+    end
+  end
+  
   describe 'calling a method with neither parameter nor block' do
     it 'returns the right value' do
       configuration.something.to_h.should == nil
