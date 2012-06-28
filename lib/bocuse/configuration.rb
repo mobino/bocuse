@@ -20,11 +20,17 @@ module Bocuse
       @unresolved_block = unresolved_block
     end
     
+    # Works as hash merge! would.
+    #
+    def merge! other
+      store.merge! other.store
+    end
+    
     # Explicit accessor.
     #
     def [] key
       value = @store[key] || Value.new
-      value.to_h
+      value.to_h # TODO This is not ok.
     end
     
     def __resolve__
