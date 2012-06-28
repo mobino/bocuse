@@ -26,11 +26,13 @@ module Bocuse
       store.merge! other.store
     end
     
-    # Explicit accessor.
+    # Explicit accessor for POROs.
+    #
+    # Note: Unwraps Values.
     #
     def [] key
-      value = @store[key] || Value.new
-      value.to_h # TODO This is not ok.
+      value = @store[key]
+      value.to_h rescue value
     end
     
     def __resolve__

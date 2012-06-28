@@ -7,7 +7,7 @@ describe Bocuse::Configuration do
   let(:configuration) { described_class.new }
   
   describe 'nil values' do
-    # TODO Should they be ignored?
+    # TODO Should nil values be ignored when putting together the output?
     #
     it 'will not be ignored (yet)' do
       something = configuration.something
@@ -77,6 +77,13 @@ describe Bocuse::Configuration do
       end
       
       configuration[:something].should == { :key => 'value' }
+    end
+    it 'is not modifiable in place as it is a PORO' do
+      something = configuration[:something]
+      
+      expect { something << "hello" }.to raise_error
+      
+      # configuration.to_h.should == { :something => ["hello"] }
     end
   end
   

@@ -21,7 +21,12 @@ node "test.staging.example.com" do |cfg|
   
   # Example: Configuration is accessible.
   #
-  cfg.cache address: cfg[:server][:internal_ip]
+  # cfg.cache address: cfg[:server][:internal_ip]
+  #
+  # Replace with the above:
+  cfg.cache do
+    address cfg[:server][:internal_ip]
+  end
   
   # Example: Block for later execution?
   #
