@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+#
+
+cd spec/files/complex
+../../../bin/bocuse staging/complex
