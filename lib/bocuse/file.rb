@@ -37,7 +37,10 @@ module Bocuse
     #
     def include_template identifier
       template = Templates.get identifier.to_sym
-      __configuration__.merge! template
+      
+      # Note: Template is dupped to avoid evaluating the original.
+      #
+      __configuration__.merge! template.dup
     end
     
     # The files read by #evaluate will trigger these methods.
