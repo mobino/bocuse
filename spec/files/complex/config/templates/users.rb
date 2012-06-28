@@ -1,6 +1,6 @@
 # A shared template.
 #
-# Use include_template :users to include this one.
+# Use include_template to include this one.
 #
 template do |cfg|
   
