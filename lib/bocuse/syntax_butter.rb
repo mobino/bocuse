@@ -10,8 +10,7 @@ module Bocuse
   # bundled here.
   #
   # For example, the "cook" declaration,
-  # application definitions, words like
-  # "node", or "template" are found here.
+  # application definitions, sharing.
   #
   module SyntaxButter
     
