@@ -14,7 +14,7 @@ describe Bocuse::Configuration do
       configuration = Bocuse::File.new.load filename
       
       configuration.to_h.should == {
-        :root => "root",
+        :user => "root",
         :users => [
           {
             :username => "some_user",

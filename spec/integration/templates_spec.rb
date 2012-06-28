@@ -9,7 +9,7 @@ describe 'bocuse templates' do
       Dir.chdir ::File.expand_path('../../files/complex', __FILE__)
       
       Bocuse::Templates.get(:users).to_h.should == {
-        :root => "root",
+        :user => "root",
         :users => [
           {
             :username => "some_user",

@@ -4,7 +4,7 @@
 #
 template do |cfg|
   
-  cfg.root 'root'
+  cfg.user 'root'
   
   users = cfg.users
   users << {
