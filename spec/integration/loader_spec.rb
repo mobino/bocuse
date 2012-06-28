@@ -35,7 +35,10 @@ describe Bocuse::Loader do
           :internal_net => "10",
           :context => 20
         },
-        :cache => {
+        :cache1 => {
+          :address => "1.1.1.1"
+        },
+        :cache2 => {
           :address => "1.1.1.1"
         },
         :recipes => ["app::install", "app::deploy"]

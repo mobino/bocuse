@@ -23,13 +23,13 @@ node "test.staging.example.com" do |cfg|
   
   # Example: Configuration is accessible.
   #
-  # cfg.cache address: cfg[:server][:internal_ip]
-  #
-  # TODO Hashes need to be possible.
-  #
-  cfg.cache do
+  cfg.cache1 do
     address cfg[:server][:internal_ip]
   end
+  
+  # Example: Passing in Hashes is possible
+  #
+  cfg.cache2 address: cfg[:server][:internal_ip]
   
   # Example: Block for later execution?
   #
