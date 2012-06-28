@@ -13,7 +13,14 @@ describe Bocuse::Configuration do
     it 'returns the right value' do
       configuration.something 'value'
       
-      configuration.something.to_h.should == 'value'
+      configuration.something.to_h.should == 'value' # <= This is the tested getter.
+    end
+    it 'is modifiable in place' do
+      something = configuration.something
+      
+      something << "hello"
+      
+      configuration.something.to_h.should == ["hello"]
     end
   end
   
@@ -60,6 +67,33 @@ describe Bocuse::Configuration do
       end
       
       configuration[:something].should == { :key => 'value' }
+    end
+  end
+  
+  describe 'merge!' do
+    it 'works as hash.merge would' do
+      configuration.something do
+        key 'value'
+      end
+    
+      other = Bocuse::Configuration.new
+      other.foo do
+        bar 'baz'
+      end
+      other.something do
+        moo 'meow'
+      end
+    
+      configuration.merge! other
+      
+      configuration.to_h.should == {
+        :something => {
+          :moo => "meow"
+        },
+        :foo => {
+          :bar => "baz" # Note that the second config overrode the first.
+        }
+      }
     end
   end
   
