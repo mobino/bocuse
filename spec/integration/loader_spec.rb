@@ -10,7 +10,7 @@ describe Bocuse::Loader do
     it 'loads the configuration' do
       Dir.chdir File.expand_path('../../files/complex', __FILE__)
       
-      loader.load('staging/complex').to_h.should == {
+      loader.evaluate('staging/complex').to_h.should == {
         :user => "root",
         :users => [
           {

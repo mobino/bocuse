@@ -11,7 +11,7 @@ describe Bocuse::Configuration do
       Dir.chdir File.expand_path '../../files/complex/', __FILE__
       
       filename = File.expand_path '../../files/complex/config/nodes/staging/complex.rb', __FILE__
-      configuration = Bocuse::File.new.load filename
+      configuration = Bocuse::File.new.evaluate filename
       
       configuration.to_h.should == {
         :user => "root",

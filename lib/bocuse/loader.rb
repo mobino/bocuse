@@ -8,10 +8,10 @@ module Bocuse
     #
     # TODO It should load all nodes, presumably?
     #
-    def load name
+    def evaluate name
       filename = ::File.expand_path "config/nodes/#{name}.rb", Dir.pwd
       file = Bocuse::File.new
-      file.load filename
+      file.evaluate filename
     end
     
   end

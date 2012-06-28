@@ -11,7 +11,7 @@ module Bocuse
   #
   class File
     
-    def configuration
+    def __configuration__
       @configuration ||= Configuration.new
     end
     
@@ -24,11 +24,11 @@ module Bocuse
     # to speak of inside the file. Use "node" or
     # "template" to define a configuration.
     #
-    def load filename
+    def evaluate filename
       ::File.open filename, 'r' do |file|
         self.instance_eval file.read, file.path
       end
-      configuration
+      __configuration__
     end
     
     # Include the given template name.
@@ -37,23 +37,23 @@ module Bocuse
     #
     def include_template identifier
       template = Templates.get identifier.to_sym
-      configuration.merge! template
+      __configuration__.merge! template
     end
     
-    # The files read by #load will trigger these methods.
+    # The files read by #evaluate will trigger these methods.
     #
     # TODO Do something with the name?
     #
     def node name = nil
-      yield configuration
-      configuration
+      yield __configuration__
+      __configuration__
     end
     alias template node
     
     # Cook adds to the toplevel recipes of this file's configuration.
     #
     def cook recipe
-      configuration.recipes << recipe
+      __configuration__.recipes << recipe
     end
     
   end

@@ -21,7 +21,7 @@ module Bocuse
       #
       def load_template identifier
         file = Bocuse::File.new
-        configuration = file.load ::File.expand_path("config/templates/#{identifier}.rb", Dir.pwd)
+        configuration = file.evaluate ::File.expand_path("config/templates/#{identifier}.rb", Dir.pwd)
         put identifier, configuration
       end
     end
