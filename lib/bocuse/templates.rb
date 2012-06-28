@@ -10,11 +10,11 @@ module Bocuse
       end
     
       def get identifier
-        templates[identifier] || load_template(identifier)
+        templates[identifier.to_sym] || load_template(identifier)
       end
     
       def put identifier, configuration
-        templates[identifier] = configuration
+        templates[identifier.to_sym] = configuration
       end
     
       # Loads the template if it hasn't been loaded yet.

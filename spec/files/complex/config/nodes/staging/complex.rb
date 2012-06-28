@@ -2,6 +2,7 @@
 #
 node "test.staging.example.com" do |cfg|
   include_template :users
+  include_template 'subdirectory/empty'
   
   # Example: Webservers.
   #

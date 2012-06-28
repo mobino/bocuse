@@ -44,6 +44,7 @@ describe Bocuse::Configuration do
         :cache2 => {
           :address => "1.1.1.1"
         },
+        :empty => true,
         :recipes => ["app::install", "app::deploy"]
       }
     end
