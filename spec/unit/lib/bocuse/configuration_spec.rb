@@ -6,18 +6,21 @@ describe Bocuse::Configuration do
 
   let(:configuration) { described_class.new }
   
-  describe 'nil values' do
-    # TODO Should nil values be ignored when putting together the output?
-    #
-    it 'will not be ignored (yet)' do
+  describe 'uninitialized values' do
+    it 'will be ignored' do
       something = configuration.something
       
-      configuration.to_h.should == { :something => nil }
+      configuration.to_h.should == {}
     end
   end
   
   describe 'calling a method with neither parameter nor block' do
     it 'returns the right value' do
+      configuration.something.to_h.should == nil # Bocuse::Value::Empty is returned as nil
+    end
+    it 'returns the right value' do
+      configuration.something nil # explicit nil
+      
       configuration.something.to_h.should == nil
     end
     it 'returns the right value' do
@@ -38,6 +41,13 @@ describe Bocuse::Configuration do
       something[:key] = "value"
       
       configuration.something.to_h.should == { :key => 'value' }
+    end
+    it 'is modifiable in place' do
+      something = configuration.something
+      
+      something[:key] = nil # Explicit nil.
+      
+      configuration.to_h.should == { :something => { :key => nil } }
     end
   end
   

@@ -76,10 +76,11 @@ module Bocuse
     # representation of the hash.
     #
     def to_h
-      __resolve__ # TODO Resolve it using the copy, not the original store.
-      copy = store.dup
-      copy.each do |key, value|
-        copy[key] = value.to_h
+      __resolve__ # Note: On to_h, blocks are resolved.
+      copy = {}
+      store.each do |key, value|
+        value = value.to_h
+        copy[key] = value if value
       end
       copy
     end

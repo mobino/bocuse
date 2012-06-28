@@ -18,22 +18,28 @@ module Bocuse
   #
   class Value
     
-    def initialize internal = nil
+    module Empty; def self.empty?; true; end end
+    
+    def initialize internal = Empty
       @internal = internal
     end
     
+    def empty?
+      @internal && @internal.empty?
+    end
+    
     def []= key, value
-      @internal ||= {}
+      @internal = {} if empty?
       @internal[key] = value
     end
     
     def << element
-      @internal ||= []
+      @internal = [] if empty?
       @internal << element
     end
     
     def to_h
-      @internal
+      @internal unless Empty == @internal
     end
     
   end
