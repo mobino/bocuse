@@ -32,6 +32,13 @@ describe Bocuse::Configuration do
       
       configuration.something.to_h.should == ["hello"]
     end
+    it 'is modifiable in place' do
+      something = configuration.something
+      
+      something[:key] = "value"
+      
+      configuration.something.to_h.should == { :key => 'value' }
+    end
   end
   
   describe 'calling a method with a parameter, but no block' do
