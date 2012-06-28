@@ -3,11 +3,14 @@
 
 # Eg. bocuse staging/complex
 #
-node = ARGV[0]
-puts %Q{Loading configuration for node "#{node}"}
+node_pattern = %r{#{ARGV[0] || '\w+'}}
+puts %Q{Loading configurations for nodes /#{node_pattern.source}/}
 
 require File.expand_path '../../lib/bocuse', __FILE__
-loader = Bocuse::Loader.new
-configuration = loader.evaluate node
 
-STDOUT.write configuration.to_h # TODO to_json
+Bocuse::Nodes.find(node_pattern).each do |name, configuration|
+  STDOUT.puts
+  STDOUT.puts name
+  STDOUT.puts configuration.to_h # TODO to_json
+  STDOUT.puts
+end

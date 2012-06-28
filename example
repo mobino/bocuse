@@ -2,5 +2,5 @@
 #
 echo '$ cd spec/files/complex'
 cd spec/files/complex
-echo '$ bocuse staging/complex'
-../../../bin/bocuse staging/complex
+echo '$ bocuse staging'
+../../../bin/bocuse staging
