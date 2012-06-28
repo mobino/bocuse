@@ -59,7 +59,7 @@ module Bocuse
           subconfig = Configuration.new &Proc.new
           store[name] = subconfig
         else
-          store[name] || Value.new
+          store[name] ||= Value.new # Note: You will add a value to the config if you get one out. Use it!
         end
       when 1
         store[name] = Value.new args.first
