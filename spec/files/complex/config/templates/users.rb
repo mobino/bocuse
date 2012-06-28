@@ -7,7 +7,6 @@ template do |cfg|
   cfg.root 'root'
   
   users = cfg.users
-  p [cfg, users]
   users << {
     :username => "some_user",
     :password => "toooootally_secret",
@@ -17,6 +16,5 @@ template do |cfg|
     :uid => 1000,
     :sudo => true
   }
-  p [cfg, users]
   
 end

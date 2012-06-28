@@ -14,6 +14,18 @@ describe Bocuse::Configuration do
       configuration = Bocuse::File.new.load filename
       
       configuration.to_h.should == {
+        :root => "root",
+        :users => [
+          {
+            :username => "some_user",
+            :password => "toooootally_secret",
+            :authorized_keys => ["key1", "key2"],
+            :shell => "/bin/someshell",
+            :gid => 1000,
+            :uid => 1000,
+            :sudo => true
+          }
+        ],
         :webserver => {
           :domains => ["staging.example.com"],
           :listen_ip => "1.2.3.4",
@@ -28,7 +40,8 @@ describe Bocuse::Configuration do
         },
         :cache => {
           :address => "1.1.1.1"
-        }
+        },
+        :recipes => ["app::install", "app::deploy"]
       }
     end
   end

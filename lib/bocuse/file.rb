@@ -37,7 +37,6 @@ module Bocuse
     #
     def include_template identifier
       template = Templates.get identifier.to_sym
-      p [:template, template]
       configuration.merge! template
     end
     
