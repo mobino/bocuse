@@ -1,2 +1,13 @@
 #!/usr/bin/env ruby
 #
+
+# Eg. bocuse staging/complex
+#
+node = ARGV[0]
+puts %Q{Loading configuration for node "#{node}"}
+
+require File.expand_path '../../lib/bocuse', __FILE__
+loader = Bocuse::Loader.new
+configuration = loader.load node
+
+STDOUT.write configuration.to_h # TODO to_json
