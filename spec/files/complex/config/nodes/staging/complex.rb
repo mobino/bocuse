@@ -1,3 +1,5 @@
+# This is a test example that contains all relevant cases.
+#
 node "test.staging.example.com" do |cfg|
   include_template :users
   
@@ -12,11 +14,11 @@ node "test.staging.example.com" do |cfg|
   # Example: Configure IP address and additional networks.
   #
   cfg.server do
-    ip                "11.22.33.44"
-    external_net      28
-    internal_ip       "1.1.1.1"
-    internal_net      "10"
-    context           20
+    ip           "11.22.33.44"
+    external_net 28
+    internal_ip  "1.1.1.1"
+    internal_net "10"
+    context      20
   end
   
   # Example: Configuration is accessible.
@@ -24,7 +26,7 @@ node "test.staging.example.com" do |cfg|
   # cfg.cache address: cfg[:server][:internal_ip]
   #
   # TODO Do we really need to be able to pass in hashes?
-  # If yes, comment and uncomment the above.
+  # If yes, comment and uncomment the above (and write some code).
   #
   cfg.cache do
     address cfg[:server][:internal_ip]
@@ -32,11 +34,12 @@ node "test.staging.example.com" do |cfg|
   
   # Example: Block for later execution?
   #
-  # Note: I did not see the point when we can write
+  # Note: I did not see the pressing point when we can write,
+  # but it's easy to add.
   # cfg.cache do
   #   address2 cfg[:server][:internal_ip]
   # end
-  #
+  # instead of
   # cfg.cache do |cache|
   #   cache.address2 cfg[:server][:internal_ip]
   # end

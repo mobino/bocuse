@@ -42,7 +42,7 @@ module Bocuse
     
     # The files read by #load will trigger these methods.
     #
-    # TODO Do something with the name.
+    # TODO Do something with the name?
     #
     def node name = nil
       yield configuration
@@ -55,7 +55,6 @@ module Bocuse
     def cook recipe
       configuration.recipes << recipe
     end
-    
     
   end
   
