@@ -83,7 +83,7 @@ describe Bocuse::Configuration do
       
       expect { something << "hello" }.to raise_error
       
-      # configuration.to_h.should == { :something => ["hello"] }
+      # configuration.to_h.should == { :something => ["hello"] } # This might be expected by a user.
     end
   end
   
