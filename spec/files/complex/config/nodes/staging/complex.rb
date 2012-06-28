@@ -25,8 +25,7 @@ node "test.staging.example.com" do |cfg|
   #
   # cfg.cache address: cfg[:server][:internal_ip]
   #
-  # TODO Do we really need to be able to pass in hashes?
-  # If yes, comment and uncomment the above (and write some code).
+  # TODO Hashes need to be possible.
   #
   cfg.cache do
     address cfg[:server][:internal_ip]
