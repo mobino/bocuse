@@ -1,4 +1,4 @@
-require 'active_support'
+require 'multi_json'
 
 require File.expand_path '../bocuse/value', __FILE__
 require File.expand_path '../bocuse/configuration', __FILE__
