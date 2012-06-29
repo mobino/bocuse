@@ -33,7 +33,13 @@ Templates can be included in node definitions using `include_template
 
 HACKING
 
-Run specs: `rspec`
+1. Get gems: `bundle install`.
+2. Verify all is ok: `rspec`.
+3. Read.
+4. Write spec.
+5. Improve code.
+6. Issue pull request with great documentation.
+7. GOTO 3 UNLESS HAPPY.
 
 AUTHORS
 
