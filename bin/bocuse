@@ -11,6 +11,6 @@ require File.expand_path '../../lib/bocuse', __FILE__
 Bocuse::Nodes.find(node_pattern).each do |name, configuration|
   STDOUT.puts
   STDOUT.puts name
-  STDOUT.puts configuration.to_h # TODO to_json
+  STDOUT.puts MultiJson.encode configuration.to_h
   STDOUT.puts
 end
