@@ -20,6 +20,9 @@ USAGE
       /templates/namespace/templatename*
       ...
 
+Nodes are files with one or more node configurations in it.
+Templates are "partial" configurations that are shared.
+
 2. Run `bocuse pattern`
 
 This will spit out configurations of all nodes matching the pattern. (Note

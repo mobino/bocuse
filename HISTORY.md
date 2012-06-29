@@ -1,4 +1,0 @@
-Version History
-===============
-
-* Upcoming Version
