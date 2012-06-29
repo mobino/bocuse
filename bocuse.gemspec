@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.files = Dir['lib/**/*.rb']
   s.test_files = Dir['spec/**/*_spec.rb']
 
-  # s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rspec'
 
-  # s.add_runtime_dependency 'bla'
+  s.add_runtime_dependency 'multi_json', '>=1.0.0'
 end
