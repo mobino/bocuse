@@ -10,7 +10,7 @@ module Bocuse
   # It is used to generate a config hash from the given files.
   #
   class File
-    
+        
     def __configuration__
       @configuration ||= Configuration.new
     end
@@ -34,11 +34,20 @@ module Bocuse
     # Evaluates all files.
     #
     # Retrieve the found configurations via
-    # Nodes.find pattern_or_name
+    #   Nodes.find pattern_or_name
     #
-    def evaluate_all dir = ::File.expand_path('config/nodes', Dir.pwd)
-      Dir[::File.join(dir, '**', '*.rb')].each do |filename|
-        evaluate filename
+    # @param dir [String] directory to use as project base directory
+    # @return [void]
+    #
+    def self.evaluate_all dir=nil
+      project_path = dir || ::File.expand_path('config', Dir.pwd)
+      nodes_path = ::File.join(project_path, 'nodes')
+      
+      # Make sure that project libraries can be loaded: 
+      $:.unshift ::File.join(project_path, 'lib')
+      
+      Dir[::File.join(nodes_path, '**', '*.rb')].each do |filename|
+        new.evaluate filename
       end
     end
     
@@ -52,6 +61,12 @@ module Bocuse
       # Note: Template is dupped to avoid evaluating the original.
       #
       __configuration__.merge! template.dup
+    end
+    
+    # Make the given module a helper module for this node. 
+    #
+    def helper_module(mod)
+      extend mod
     end
     
     # The files read by #evaluate will trigger these methods.

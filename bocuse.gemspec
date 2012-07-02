@@ -20,6 +20,9 @@ Gem::Specification.new do |s|
   s.test_files = Dir['spec/**/*_spec.rb']
 
   s.add_development_dependency 'rspec'
+  s.add_development_dependency 'guard'
+  s.add_development_dependency 'guard-rspec'
 
   s.add_runtime_dependency 'multi_json', '>=1.0.0'
+  s.add_runtime_dependency 'thor', '~> 0.15'
 end

@@ -21,8 +21,8 @@ module Bocuse
       #
       # Note: File.evaluate_all tries to load all nodes.
       #
-      def all
-        @nodes || File.new.evaluate_all && @nodes || []
+      def all directory=nil
+        @nodes || File.evaluate_all(directory) && @nodes || []
       end
       
       # Clear the cache.
@@ -30,14 +30,24 @@ module Bocuse
       def clear
         @nodes = nil
       end
-    
-      # Pass in any String#=== comparable object.
+
+      # Loads all node descriptions and searches for a pattern or a given node
+      # by name. 
+      # 
+      # @overload find(anything)
+      #   Finds a node taking the current directory as base project directory. 
+      #   @param anything [#===] node pattern or name to look for
+      #   @return [Hash<name,configuration>] a name,configuration map
+      # @overload find(anything, directory)
+      #   Finds a node in a given project directory.
+      #   @param anything [#===] node pattern or name to look for
+      #   @param directory [String] bocuse project directory
+      #   @return [Hash<name,configuration>] a name,configuration map
       #
-      # Returns a Hash of { name => configuration }
       #
-      def find anything
+      def find anything, directory=nil
         result = {}
-        all.each do |name, configuration|
+        all(directory).each do |name, configuration|
           result[name] = configuration if anything === name
         end
         result

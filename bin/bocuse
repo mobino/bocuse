@@ -1,16 +1,36 @@
 #!/usr/bin/env ruby
 #
 
-# Eg. bocuse staging/complex
-#
-node_pattern = %r{#{ARGV[0] || '\w+'}}
-puts %Q{Loading configurations for nodes /#{node_pattern.source}/}
-
 require File.expand_path '../../lib/bocuse', __FILE__
 
-Bocuse::Nodes.find(node_pattern).each do |name, configuration|
-  STDOUT.puts
-  STDOUT.puts name
-  STDOUT.puts MultiJson.encode configuration.to_h
-  STDOUT.puts
+# Bocuse::Nodes.find(node_pattern).each do |name, configuration|
+#   STDOUT.puts
+#   STDOUT.puts name
+#   STDOUT.puts MultiJson.encode configuration.to_h
+#   STDOUT.puts
+# end
+
+require 'thor'
+
+class BocuseCLI < Thor
+  desc "compile NODE_FQDN", "Compiles the node given and outputs its JSON configuration."
+  def compile(node_fqdn)
+    nodes = Bocuse::Nodes.find(node_fqdn)
+    
+    if nodes.empty?
+      fail "No such node: #{node_fqdn}."
+    end
+  
+    if nodes.size > 1
+      node_names = nodes.keys.join(', ')
+      fail "More than one node matches that NODE_FQDN: #{node_names}. Aborting!"
+    end
+    
+    node_name, node_config = nodes.first
+    p node_config, node_name
+    
+    MultiJson.encode node_config.to_h
+  end
 end
+
+BocuseCLI.start
