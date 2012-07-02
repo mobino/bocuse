@@ -5,6 +5,8 @@ require 'spec_helper'
 describe Bocuse::File do
 
   let(:file) { described_class.new }
+  
+  it "checks that helper inclusion only works for the current file" 
 
   describe 'node' do
     it 'works correctly' do

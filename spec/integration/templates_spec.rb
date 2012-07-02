@@ -2,7 +2,7 @@
 #
 require 'spec_helper'
 
-describe 'bocuse templates' do
+describe 'Templates' do
 
   describe 'loading' do
     it 'works' do
@@ -24,5 +24,8 @@ describe 'bocuse templates' do
       }
     end
   end
-
+  
+  describe '#require_ingredients' do
+    it "complains if the current configuration doesn't contain the given keys" 
+  end
 end
