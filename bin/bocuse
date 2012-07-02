@@ -27,9 +27,8 @@ class BocuseCLI < Thor
     end
     
     node_name, node_config = nodes.first
-    p node_config, node_name
     
-    MultiJson.encode node_config.to_h
+    puts MultiJson.encode node_config.to_h
   end
 end
 
