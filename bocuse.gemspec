@@ -4,11 +4,12 @@ Gem::Specification.new do |s|
   s.name = 'bocuse'
   s.version = '0.0.1'
 
-  s.author = 'Mobino AG'
-  s.email = ''
+  s.authors = ['Florian Hanke', 'Kaspar Schiess', 'Jens-Christian Fischer']
+  s.email   = ['florian.hanke@technologyastronauts.ch', 
+               'kaspar.schiess@technologyastronauts.ch', 
+               'jcf@mobino.com']
 
   s.homepage = 'http://github.com/mobino/bocuse'
-  s.rubyforge_project = ''
 
   s.description = 'A front-end language to chef-solo.'
   s.summary = 'A front-end language to chef-solo.'
