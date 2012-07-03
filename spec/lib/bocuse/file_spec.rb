@@ -8,7 +8,8 @@ describe Bocuse::File do
   
   before(:each) { 
     context.
-      should_receive(:register_node).by_default 
+      should_receive(
+        :register_node, :register_template).by_default 
   }
   
   it "checks that helper inclusion only works for the current file" 
@@ -34,7 +35,7 @@ describe Bocuse::File do
   
   describe 'template' do
     it 'works correctly' do
-      configuration = file.template :identifier do |cfg|
+      configuration = file.template do |cfg|
         cfg.something :value
         cfg.something_else do
           key 'value'

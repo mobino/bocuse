@@ -31,10 +31,12 @@ describe Bocuse::Project do
   end
   describe '#register_template / #template' do
     before(:each) { 
-      project.register_template :name, :configuration }
+      base = project.base_path
+      template = base.join('templates', 'foo', 'bar.rb')
+      project.register_template template, :configuration }
       
     it "returns the template" do
-      project.template(:name).should == :configuration
+      project.template('foo/bar').should == :configuration
     end 
   end
 end

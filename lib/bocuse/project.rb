@@ -18,6 +18,9 @@ module Bocuse
   #     templates/
   #     lib/
   #
+  # This class does most of the base path handling and of the path
+  # manipulation. 
+  #
   class Project
     attr_reader :base_path
         
@@ -39,6 +42,11 @@ module Bocuse
       $:.unshift lib_dir if ::File.directory?(lib_dir)
     end
     
+    # Returns one of the projects files as a {File}.
+    #
+    # @param path [String] a relative or absulute file path 
+    # @return [File] file at path below the project directory
+    #
     def file path
       path = Pathname.new(path)
       path = base_path.join(path) unless path.absolute?
@@ -58,14 +66,43 @@ module Bocuse
     
     # Registers a template for project usage. 
     #
-    def register_template name, template
-      @templates.store name, template
+    def register_template path, template
+      path = path.to_s
+      template_base = base_path.join('templates/').to_s
+      
+      # Is this template path below base_path?
+      if path.start_with?(template_base)
+        path = path[template_base.size..-1]
+      end
+      
+      # Does the path end in .rb? (most will)
+      if path.end_with?('.rb')
+        path = path.slice 0..-4
+      end
+
+      @templates.store path.to_sym, template
     end
     
-    # Returns a template by name.
+    # Returns a template by name. Official template names can be either
+    # absulute paths or relative paths to template files, but do NOT end in
+    # .rb. 
+    # 
+    #   foo               -> templates/foo.rb
+    #   /templates/bar    -> /usr/templates/bar.rb
     #
     def template name
-      @templates.fetch name
+      unless @templates.has_key?(name.to_sym)
+        file_name = name.to_s
+        file_name += '.rb' unless file_name.end_with?('.rb')
+        
+        # Try to find and load this template: 
+        template_path = base_path.join('templates', file_name)
+        file(template_path).evaluate
+        
+        # A successful load will register the template.
+      end
+      
+      @templates.fetch name.to_sym
     end
     
     # Registers a machine node in the project. 
@@ -99,7 +136,7 @@ module Bocuse
         file(filename).evaluate
       end
     end
-    
+        
     class << self # CLASS METHODS
       def bocuse_path?(path)
         %w(nodes).all? { |el| 

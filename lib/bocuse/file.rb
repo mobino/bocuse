@@ -39,7 +39,7 @@ class Bocuse::File
   # Note: This could be pushed to the configuration.
   #
   def include_template identifier
-    template = @context.template identifier.to_sym
+    template = @context.template identifier
 
     # Note: Template is dupped to avoid evaluating the original.
     #
@@ -60,9 +60,10 @@ class Bocuse::File
       @context.register_node name, configuration
     end
   end
-  def template name
+  def template
     configuration_block do |configuration|
       yield configuration
+      @context.register_template path, configuration
     end
   end
   
