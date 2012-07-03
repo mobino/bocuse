@@ -13,7 +13,6 @@ describe Bocuse::Configuration do
       configuration.to_h.should == {}
     end
   end
-  
   describe 'calling a method with neither parameter nor block' do
     it 'returns the right value' do
       configuration.something.to_h.should == nil # Bocuse::Value::Empty is returned as nil
@@ -50,7 +49,6 @@ describe Bocuse::Configuration do
       configuration.to_h.should == { :something => { :key => nil } }
     end
   end
-  
   describe 'calling a method with a parameter, but no block' do
     it 'stores the value correctly' do
       configuration.something 'value'
@@ -58,7 +56,6 @@ describe Bocuse::Configuration do
       configuration.to_h.should == { :something => 'value' }
     end
   end
-  
   describe 'calling a method with a block, but no parameter' do
     it 'stores the value correctly' do
       configuration.something do
@@ -68,7 +65,6 @@ describe Bocuse::Configuration do
       configuration.to_h.should == { :something => { :key => 'value' } }
     end
   end
-  
   describe 'calling a method with a block, but no parameter' do
     it 'stores the value correctly' do
       configuration.something do
@@ -78,7 +74,6 @@ describe Bocuse::Configuration do
       configuration.to_h.should == { :something => { :key => 'value' } }
     end
   end
-  
   describe 'configuration is accessible' do
     it 'offers a [] method' do
       configuration[:something].should == nil
@@ -103,7 +98,6 @@ describe Bocuse::Configuration do
       # configuration.to_h.should == { :something => ["hello"] } # This might be expected by a user.
     end
   end
-  
   describe 'merge!' do
     it 'works as hash.merge would' do
       configuration.something do
@@ -121,14 +115,14 @@ describe Bocuse::Configuration do
       configuration.merge! other
       
       configuration.to_h.should == {
+        # Note that the second config overrode the first.
         :something => {
           :moo => "meow"
         },
         :foo => {
-          :bar => "baz" # Note that the second config overrode the first.
+          :bar => "baz" 
         }
       }
     end
   end
-  
 end

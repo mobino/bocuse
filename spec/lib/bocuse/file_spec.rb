@@ -35,14 +35,17 @@ describe Bocuse::File do
   
   describe 'template' do
     it 'works correctly' do
-      configuration = file.template do |cfg|
+      template = file.template do |cfg|
         cfg.something :value
         cfg.something_else do
           key 'value'
         end
       end
       
-      configuration.to_h.should == { :something => :value, :something_else => { :key => "value" } }
+      config = Bocuse::Configuration.new
+      template.call config
+      
+      config.to_h.should == { :something => :value, :something_else => { :key => "value" } }
     end
   end
   

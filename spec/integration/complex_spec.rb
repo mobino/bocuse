@@ -45,5 +45,13 @@ describe 'complex example with templates' do
       }
     end
   end
-
+  describe 'hash of node "complex.production.example.com"' do
+    it "contains only recipes that are relevant to the node" do
+      config = project.nodes.
+        find { |name, _| name == 'complex.production.example.com' }.
+        last
+        
+      config.to_h[:recipes].should =~ %w(nginx git app::install app::deploy)
+    end 
+  end
 end

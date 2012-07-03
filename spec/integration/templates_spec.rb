@@ -7,7 +7,10 @@ describe 'Templates' do
 
   describe 'loading' do
     it 'works' do
-      project.template(:users).to_h.should == {
+      config = Bocuse::Configuration.new
+      project.template(:users).call(config)
+      
+      config.to_h.should == {
         :user => "root",
         :users => [
           {

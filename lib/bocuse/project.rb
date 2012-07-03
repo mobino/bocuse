@@ -102,7 +102,7 @@ module Bocuse
         # A successful load will register the template.
       end
       
-      @templates.fetch name.to_sym
+      @templates.fetch(name.to_sym)
     end
     
     # Registers a machine node in the project. 
