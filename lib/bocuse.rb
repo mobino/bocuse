@@ -1,7 +1,8 @@
 require 'multi_json'
 
-require File.expand_path '../bocuse/value', __FILE__
-require File.expand_path '../bocuse/configuration', __FILE__
-require File.expand_path '../bocuse/templates', __FILE__
-require File.expand_path '../bocuse/file', __FILE__
-require File.expand_path '../bocuse/nodes', __FILE__
+require 'bocuse/project'
+require 'bocuse/value'
+require 'bocuse/configuration'
+require 'bocuse/templates'
+require 'bocuse/unit'
+require 'bocuse/nodes'

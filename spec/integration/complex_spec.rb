@@ -3,15 +3,11 @@
 require 'spec_helper'
 
 describe 'complex example with templates' do
+  let(:project) { Bocuse::Project.new(fixture('complex')) }
   
-  describe 'loading a specific file' do
-    it 'works' do
-      # Set the current working directory correctly.
-      #
-      Dir.chdir File.expand_path '../../files/complex/', __FILE__
-      
-      filename = File.expand_path '../../files/complex/config/nodes/staging/complex.rb', __FILE__
-      configuration = Bocuse::File.new.evaluate filename
+  describe 'hash of node "test.staging.example.com"' do
+    it 'looks right' do
+      configuration = project.evaluate('nodes/staging/complex.rb')
       
       configuration.to_h.should == {
         :user => "root",
@@ -45,7 +41,7 @@ describe 'complex example with templates' do
           :address => "1.1.1.1"
         },
         :empty => true,
-        :recipes => ["app::install", "app::deploy"]
+        :recipes => ["nginx", "git", "app::install", "app::deploy"]
       }
     end
   end

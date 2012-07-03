@@ -1,13 +1,19 @@
-# Represents a bocuse File.
+# Represents a bocuse File. It is named unit to avoid constant lookup hell.
 #
-# This is usually a file that contains one of the
+# This is usually a file that contains one or more of the
 # following directives:
 #  * node
 #  * template
 #
 # It is used to generate a config hash from the given files.
 #
-class Bocuse::File
+class Bocuse::Unit
+  
+  attr_reader :path
+  
+  def initialize(path)
+    @path = path
+  end
       
   def __configuration__
     @configuration ||= Bocuse::Configuration.new
@@ -22,31 +28,11 @@ class Bocuse::File
   # to speak of inside the file. Use "node" or
   # "template" to define a configuration.
   #
-  def evaluate filename
-    ::File.open filename, 'r' do |file|
+  def evaluate
+    ::File.open path, 'r' do |file|
       self.instance_eval file.read, file.path
     end
     __configuration__
-  end
-  
-  # Evaluates all files.
-  #
-  # Retrieve the found configurations via
-  #   Nodes.find pattern_or_name
-  #
-  # @param dir [String] directory to use as project base directory
-  # @return [void]
-  #
-  def self.evaluate_all dir=nil
-    project_path = dir || ::File.expand_path('config', Dir.pwd)
-    nodes_path = ::File.join(project_path, 'nodes')
-    
-    # Make sure that project libraries can be loaded: 
-    $:.unshift ::File.join(project_path, 'lib')
-    
-    Dir[::File.join(nodes_path, '**', '*.rb')].each do |filename|
-      new.evaluate filename
-    end
   end
   
   # Include the given template name.

@@ -11,23 +11,28 @@ describe 'finding nodes' do
     end
     
     it 'works with defaults' do
-      nodes = Bocuse::Nodes.all
-      nodes.size.should == 1
-    end
-    it 'works with specific dir' do
-      Dir.chdir File.expand_path('../../files/many', __FILE__)
-      
-      nodes = Bocuse::Nodes.all
+      nodes = Bocuse::Nodes.all fixture('many/config')
       nodes.size.should == 4
     end
-    it 'works with specific string' do
-      Dir.chdir File.expand_path('../../files/many', __FILE__)
-      
-      nodes = Bocuse::Nodes.find 'subfolder1'
-      nodes.size.should == 1
+    describe 'in files/many' do
+      before(:each) { 
+        Dir.chdir fixture('many') }
+        
+      it 'works with specific dir' do
+        nodes = Bocuse::Nodes.all
+        nodes.size.should == 4
+      end
+      it 'works with specific string' do
+        nodes = Bocuse::Nodes.find 'subfolder1'
+        nodes.size.should == 1
+      end
     end
+    it "works when giving the directory as argument" do      
+      nodes = Bocuse::Nodes.find 'subfolder1', fixture('many/config')
+      nodes.size.should == 1
+    end 
     it 'works with regexp' do
-      Dir.chdir File.expand_path('../../files/many', __FILE__)
+      Dir.chdir fixture('many')
       
       nodes = Bocuse::Nodes.find /1$/
       nodes.size.should == 2

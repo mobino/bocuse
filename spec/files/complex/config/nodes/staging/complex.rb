@@ -1,6 +1,7 @@
 # This is a test example that contains all relevant cases.
 #
 node "test.staging.example.com" do |cfg|
+  include_template :cooking
   include_template :users
   include_template 'subdirectory/empty'
   
@@ -31,18 +32,6 @@ node "test.staging.example.com" do |cfg|
   # Example: Passing in Hashes is possible
   #
   cfg.cache2 address: cfg[:server][:internal_ip]
-  
-  # Example: Block for later execution?
-  #
-  # Note: I did not see the pressing point when we can write,
-  # but it's easy to add.
-  # cfg.cache do
-  #   address2 cfg[:server][:internal_ip]
-  # end
-  # instead of
-  # cfg.cache do |cache|
-  #   cache.address2 cfg[:server][:internal_ip]
-  # end
   
   # Example: Toplevel recipes.
   #

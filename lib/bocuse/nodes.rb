@@ -45,10 +45,10 @@ module Bocuse
       #   @return [Hash<name,configuration>] a name,configuration map
       #
       #
-      def find anything, directory=nil
+      def find pattern, directory=nil
         result = {}
         all(directory).each do |name, configuration|
-          result[name] = configuration if anything === name
+          result[name] = configuration if pattern === name
         end
         result
       end
