@@ -98,31 +98,4 @@ describe Bocuse::Configuration do
       # configuration.to_h.should == { :something => ["hello"] } # This might be expected by a user.
     end
   end
-  describe 'merge!' do
-    it 'works as hash.merge would' do
-      configuration.something do
-        key 'value'
-      end
-    
-      other = Bocuse::Configuration.new
-      other.foo do
-        bar 'baz'
-      end
-      other.something do
-        moo 'meow'
-      end
-    
-      configuration.merge! other
-      
-      configuration.to_h.should == {
-        # Note that the second config overrode the first.
-        :something => {
-          :moo => "meow"
-        },
-        :foo => {
-          :bar => "baz" 
-        }
-      }
-    end
-  end
 end

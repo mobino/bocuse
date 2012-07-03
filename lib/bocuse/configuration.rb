@@ -15,15 +15,9 @@ module Bocuse
     attr_reader :store,
                 :unresolved_block
     
-    def initialize &unresolved_block
+    def initialize
       @store = {}
-      @unresolved_block = unresolved_block
-    end
-    
-    # Works as hash merge! would.
-    #
-    def merge! other
-      store.merge! other.store
+      instance_eval(&Proc.new) if block_given?
     end
     
     # Explicit accessor for POROs.
@@ -34,14 +28,7 @@ module Bocuse
       value = @store[key]
       value.to_h rescue value
     end
-    
-    def __resolve__
-      if unresolved_block
-        self.instance_eval &unresolved_block
-        unresolved_block = nil
-      end
-    end
-    
+        
     # The main method.
     #
     # It will react to method calls, install the right keys
@@ -76,7 +63,6 @@ module Bocuse
     # representation of the hash.
     #
     def to_h
-      __resolve__ # Note: On to_h, blocks are resolved.
       copy = {}
       store.each do |key, value|
         value = value.to_h
