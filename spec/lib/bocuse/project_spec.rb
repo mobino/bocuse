@@ -25,4 +25,15 @@ describe Bocuse::Project do
         fixture('complex/config/nodes/production/complex')
     end 
   end
+  describe '#register_node' do
+    
+  end
+  describe '#register_template / #template' do
+    before(:each) { 
+      project.register_template :name, :configuration }
+      
+    it "returns the template" do
+      project.template(:name).should == :configuration
+    end 
+  end
 end
