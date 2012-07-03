@@ -3,12 +3,11 @@
 require 'spec_helper'
 
 describe 'Templates' do
+  let(:project) { Bocuse::Project.new(fixture('complex')) }
 
   describe 'loading' do
     it 'works' do
-      Dir.chdir ::File.expand_path('../../files/complex', __FILE__)
-      
-      Bocuse::Templates.get(:users).to_h.should == {
+      project.template(:users).to_h.should == {
         :user => "root",
         :users => [
           {
