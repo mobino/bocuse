@@ -33,6 +33,10 @@ module Bocuse
       @base_path = Pathname.new(base_directory)
       @templates = Hash.new
       @nodes     = Hash.new
+      
+      # Make sure that project libraries can be loaded: 
+      lib_dir = base_path.join('lib')
+      $:.unshift lib_dir if ::File.directory?(lib_dir)
     end
     
     def file path
@@ -49,7 +53,7 @@ module Bocuse
     # @return [void]
     #
     def evaluate path
-      file(path).evaluate(self)
+      file(path).evaluate
     end
     
     # Registers a template for project usage. 
@@ -89,13 +93,9 @@ module Bocuse
     # @return [void]
     #
     def evaluate_all
-      nodes_path = base_path.join('nodes')
+      nodes_glob = base_path.join('nodes', '**', '*.rb')
 
-      # Make sure that project libraries can be loaded: 
-      lib_dir = base_path.join('lib')
-      $:.unshift lib_dir if ::File.directory?(lib_dir)
-
-      Dir[nodes_path.join('**', '*.rb')].each do |filename|
+      Dir[nodes_glob].each do |filename|
         file(filename).evaluate
       end
     end
