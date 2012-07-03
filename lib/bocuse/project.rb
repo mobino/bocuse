@@ -27,28 +27,27 @@ module Bocuse
       base_directory = base_directory || Dir.pwd
         
       if chef_cohosted?(base_directory)
-        base_directory = File.join(base_directory, 'config')
+        base_directory = ::File.join(base_directory, 'config')
       end
       
       @base_path = Pathname.new(base_directory)
     end
     
-    # Returns a Bocuse::Unit constructed with the file pointed to by path. If
-    # the path doesn't start with a ?/, it is interpreted as being relative to
-    # the base directory.
-    #
-    def unit(path)
+    def file(path)
       path = Pathname.new(path)
+      path = base_path.join(path) unless path.absolute?
       
-      return Bocuse::Unit.new(path) if path.absolute?
-      return Bocuse::Unit.new(
-        base_path.join(path))
+      Bocuse::File.new(path)
     end
     
     # Evaluates a file given by path. 
     #
+    # @param path [String] file path, either absolute or relative to project
+    #   base directory
+    # @return [void]
+    #
     def evaluate(path)
-      unit(path).evaluate
+      file(path).evaluate(self)
     end
     
     # Evaluates all files in the project.
@@ -74,14 +73,14 @@ module Bocuse
     class << self # CLASS METHODS
       def bocuse_path?(path)
         %w(nodes).all? { |el| 
-          File.directory?(File.join(path, el)) }
+          ::File.directory?(::File.join(path, el)) }
       end
     end
     
   private
     def chef_cohosted?(base)
       !self.class.bocuse_path?(base) && 
-        self.class.bocuse_path?(File.join(base, 'config'))
+        self.class.bocuse_path?(::File.join(base, 'config'))
     end
   end
 end

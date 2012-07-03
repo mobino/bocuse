@@ -13,15 +13,15 @@ describe Bocuse::Project do
         base_path.should == fixture('complex/config')
     end  
   end
-  describe '#unit' do
+  describe '#file' do
     let(:project) { described_class.new(fixture('complex')) }
-    let(:unit)    { project.unit('nodes/production/complex') }
+    let(:file)    { project.file('nodes/production/complex') }
     
     it "returns a Bocuse::Unit instance" do
-      unit.should be_instance_of(Bocuse::Unit)
+      file.should be_instance_of(Bocuse::File)
     end 
     it "has the correct expanded path" do
-      unit.path.should == 
+      file.path.should == 
         fixture('complex/config/nodes/production/complex')
     end 
   end
