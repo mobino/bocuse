@@ -3,6 +3,8 @@ require 'spec_helper'
 require 'bocuse/project'
 
 describe Bocuse::Project do
+  let(:project) { described_class.new(fixture('complex')) }
+
   describe '#base_path' do
     it "detects a simple project" do
       described_class.new(fixture('complex/config')).
@@ -14,7 +16,6 @@ describe Bocuse::Project do
     end  
   end
   describe '#file' do
-    let(:project) { described_class.new(fixture('complex')) }
     let(:file)    { project.file('nodes/production/complex') }
     
     it "returns a Bocuse::Unit instance" do

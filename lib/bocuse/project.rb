@@ -31,13 +31,14 @@ module Bocuse
       end
       
       @base_path = Pathname.new(base_directory)
+      @templates = Hash.new
     end
     
-    def file(path)
+    def file path
       path = Pathname.new(path)
       path = base_path.join(path) unless path.absolute?
       
-      Bocuse::File.new(path)
+      Bocuse::File.new(path, self)
     end
     
     # Evaluates a file given by path. 
@@ -46,8 +47,20 @@ module Bocuse
     #   base directory
     # @return [void]
     #
-    def evaluate(path)
+    def evaluate path
       file(path).evaluate(self)
+    end
+    
+    # Registers a template for project usage. 
+    #
+    def register_template name, template
+      @templates.store name, template
+    end
+    
+    # Returns a template by name.
+    #
+    def template name
+      @templates.fetch name
     end
     
     # Evaluates all files in the project.
