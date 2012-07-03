@@ -1,7 +1,7 @@
 module Bocuse
   # A configuration unit. 
   #
-  class Unit
+  class Bocuse::Unit
     # Returns the current configuration, but only during a call to this 
     # unit. 
     attr_reader :current_configuration

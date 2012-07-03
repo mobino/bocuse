@@ -37,5 +37,4 @@ node "test.staging.example.com" do |cfg|
   #
   cook "app::install"
   cook "app::deploy"
-
 end

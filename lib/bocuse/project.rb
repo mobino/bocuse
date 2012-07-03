@@ -1,3 +1,5 @@
+require 'pathname'
+
 module Bocuse
   # A bocuse project comes in two flavours: simple and co-located with chef.
   # The simple project is a directory with the subdirectories 
