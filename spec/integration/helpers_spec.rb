@@ -1,14 +1,12 @@
 require 'spec_helper'
 
 describe 'helpers example' do
-  before(:each) { Bocuse::File.evaluate_all fixture('helpers/config') }
+  let(:project) { Bocuse::Project.new(fixture('helpers')) }
   
   describe 'loading "node"' do
     it 'works' do
-      configuration = Bocuse::Nodes.find('node')
-      configuration.should_not be_empty
-      
-      configuration['node'][:foo].should == 'bar'
+      configuration = project.nodes['node']      
+      configuration[:foo].should == 'bar'
     end
   end
 

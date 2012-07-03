@@ -70,7 +70,7 @@ class Bocuse::File
   # Cook adds to the toplevel recipes of this file's configuration.
   #
   def cook recipe
-    __configuration__.recipes << recipe
+    current_configuration.recipes << recipe
   end
   
 private

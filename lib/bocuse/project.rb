@@ -117,7 +117,7 @@ module Bocuse
     #   configuration objects.
     #
     def nodes
-      evaluate_all
+      evaluate_all unless @nodes.size > 0
       @nodes
     end
     
