@@ -32,6 +32,7 @@ module Bocuse
       
       @base_path = Pathname.new(base_directory)
       @templates = Hash.new
+      @nodes     = Hash.new
     end
     
     def file path
@@ -63,6 +64,22 @@ module Bocuse
       @templates.fetch name
     end
     
+    # Registers a machine node in the project. 
+    #
+    def register_node name, node
+      @nodes.store name, node
+    end
+    
+    # Returns all nodes in this project as a hash. 
+    #
+    # @return [Hash<name,Configuration>] A hash mapping node names to their
+    #   configuration objects.
+    #
+    def nodes
+      evaluate_all
+      @nodes
+    end
+    
     # Evaluates all files in the project.
     #
     # Retrieve the found configurations via
@@ -71,15 +88,15 @@ module Bocuse
     # @param dir [String] directory to use as project base directory
     # @return [void]
     #
-    def self.evaluate_all dir=nil
-      project_path = dir || ::File.expand_path('config', Dir.pwd)
-      nodes_path = ::File.join(project_path, 'nodes')
+    def evaluate_all
+      nodes_path = base_path.join('nodes')
 
       # Make sure that project libraries can be loaded: 
-      $:.unshift ::File.join(project_path, 'lib')
+      lib_dir = base_path.join('lib')
+      $:.unshift lib_dir if ::File.directory?(lib_dir)
 
-      Dir[::File.join(nodes_path, '**', '*.rb')].each do |filename|
-        new.evaluate filename
+      Dir[nodes_path.join('**', '*.rb')].each do |filename|
+        file(filename).evaluate
       end
     end
     
