@@ -1,10 +1,10 @@
-# encoding: utf-8
-#
 require 'spec_helper'
 
-describe Bocuse::File do
+require 'bocuse/unit'
 
-  let(:file) { described_class.new }
+describe Bocuse::Unit do
+
+  let(:file) { described_class.new('path') }
   
   it "checks that helper inclusion only works for the current file" 
 
