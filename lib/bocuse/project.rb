@@ -46,7 +46,7 @@ module Bocuse
     
     # Returns one of the projects files as a {File}.
     #
-    # @param path [String] a relative or absulute file path 
+    # @param path [String] a relative or absolute file path 
     # @return [File] file at path below the project directory
     #
     def file path
@@ -86,7 +86,7 @@ module Bocuse
     end
     
     # Returns a template by name. Official template names can be either
-    # absulute paths or relative paths to template files, but do NOT end in
+    # absolute paths or relative paths to template files, but do NOT end in
     # .rb. 
     # 
     #   foo               -> templates/foo.rb
@@ -139,7 +139,7 @@ module Bocuse
       end
     end
         
-    class << self # CLASS METHODS
+    class << self
       def bocuse_path?(path)
         %w(nodes).all? { |el| 
           ::File.directory?(::File.join(path, el)) }
