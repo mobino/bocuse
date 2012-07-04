@@ -2,8 +2,7 @@ module Bocuse
   # A configuration unit. 
   #
   class Bocuse::Unit
-    # Returns the current configuration, but only during a call to this 
-    # unit. 
+    # Returns the current configuration, but only during a call to this unit. 
     attr_reader :current_configuration
     
     def initialize(block, context)

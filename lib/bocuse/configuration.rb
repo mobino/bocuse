@@ -6,9 +6,8 @@ module Bocuse
   #  * to be able to spit out a configuration hash when prompted.
   #  * to be configurable
   #
-  # It will mainly return proxies that will lodge themselves
-  # in its internal hash. The proxies usually represent an
-  # internal hash value.
+  # It will mainly return proxies that will lodge themselves in its internal
+  # hash. The proxies usually represent an internal hash value.
   #
   class Configuration
     
@@ -31,12 +30,12 @@ module Bocuse
         
     # The main method.
     #
-    # It will react to method calls, install the right keys
-    # on the internal store and return proxies on
-    # which callers can perform operations, e.g. <<.
+    # It will react to method calls, install the right keys on the internal
+    # store and return proxies on which callers can perform operations, e.g.
+    # <<.
     #
-    # Note: The user only interacts with Values and Configurations.
-    # Not with the internal values.
+    # Note: The user only interacts with Values and Configurations. Not with
+    # the internal values.
     #
     # Except when the user explicitly takes the
     # values out using [].
@@ -48,7 +47,9 @@ module Bocuse
           subconfig = Configuration.new &Proc.new
           store[name] = subconfig
         else
-          store[name] ||= Value.new # Note: You will add a value to the config if you get one out. Use it!
+          # Note: You will add a value to the config if you get one out. Use
+          # it!
+          store[name] ||= Value.new 
         end
       when 1
         store[name] = Value.new args.first
@@ -57,10 +58,9 @@ module Bocuse
     
     # Returns a configuration hash.
     #
-    # Note: Resolves any unresolved blocks.
+    # NOTE: Resolves any unresolved blocks.
     #
-    # Note: Call to_json on this to get a JSON
-    # representation of the hash.
+    # NOTE: Call to_json on this to get a JSON representation of the hash.
     #
     def to_h
       copy = {}

@@ -1,20 +1,13 @@
 module Bocuse
 
-  # This is a value object that by default starts out
-  # life as not having decided what exactly it is.
+  # This is a value object that by default starts out life as not having
+  # decided what exactly it is.
   #
-  # On first adding another object, it assumes an internal
-  # form.
+  # On first adding another object, it assumes an internal form.
   #
-  # It will complain if its internal form does not
-  # correspond to the assumed external one, ie.
-  # when you want to << something, but it has already
-  # assumed the internal form of a hash (<< does not
-  # exist on a hash).
-  #
-  # Note to next developer:
-  # Delegations are explicitly stated.
-  # Did not want to pull in active support prematurely.
+  # It will complain if its internal form does not correspond to the assumed
+  # external one, ie. when you want to << something, but it has already
+  # assumed the internal form of a hash (<< does not exist on a hash).
   #
   class Value
     

@@ -22,12 +22,10 @@ class Bocuse::File
     
   # Returns a config hash.
   #
-  # Call to_h on the returned configuration to
-  # get the config hash.
+  # Call to_h on the returned configuration to get the config hash.
   #
-  # Will return nil if there is no configuration
-  # to speak of inside the file. Use "node" or
-  # "template" to define a configuration.
+  # Will return nil if there is no configuration to speak of inside the file.
+  # Use "node" or "template" to define a configuration.
   #
   def evaluate
     ::File.open path, 'r' do |file|
@@ -46,9 +44,9 @@ class Bocuse::File
     end
   end
   def template
-    # Delay template evaluation until someone tries to call
-    # include_template. At that time, we'll have a configuration object to
-    # have the template manipulate. 
+    # Delay template evaluation until someone tries to call include_template.
+    # At that time, we'll have a configuration object to have the template
+    # manipulate. 
     unit = Bocuse::Unit.new(Proc.new, @context)
     @context.register_template path, unit
     unit
