@@ -31,6 +31,12 @@ module Bocuse
       value = @store[key]
       value.to_h rescue value
     end
+    
+    # Sets key to value. 
+    #
+    def []= key, value
+      @store[key] = value
+    end
         
     # The main method.
     #
@@ -38,8 +44,8 @@ module Bocuse
     # store and return proxies on which callers can perform operations, e.g.
     # <<.
     #
-    # Note: The user only interacts with Values and Configurations. Not with
-    # the internal values.
+    # Note: The user only interacts with Configurations. Not with the internal
+    # values.
     #
     # Except when the user explicitly takes the
     # values out using [].
@@ -51,8 +57,6 @@ module Bocuse
           subconfig = Configuration.new &Proc.new
           store[name] = subconfig
         else
-          # Note: You will add a value to the config if you get one out. Use
-          # it!
           store[name] ||= Value.new 
         end
       when 1
@@ -73,6 +77,19 @@ module Bocuse
         copy[key] = value if value
       end
       copy
+    end
+    
+    # Performs a deep duplication of this configuration object. This is mainly
+    # used by the user for quickly generating a lot of copies of a template.
+    # 
+    def dup
+      dup_cfg = Configuration.new
+
+      store.each do |key, value|
+        dup_cfg[key] = value.dup
+      end
+
+      dup_cfg
     end
     
   end

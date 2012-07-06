@@ -35,6 +35,9 @@ module Bocuse
       @internal unless Empty == @internal
     end
     
+    def dup
+      Value.new(@internal.dup)
+    end
   end
   
 end

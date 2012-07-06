@@ -56,7 +56,7 @@ describe Bocuse::Configuration do
       configuration.to_h.should == { :something => 'value' }
     end
   end
-  describe 'calling a method with a block, but no parameter' do
+  describe '.something do ... end' do
     it 'stores the value correctly' do
       configuration.something do
         key 'value'
@@ -65,10 +65,25 @@ describe Bocuse::Configuration do
       configuration.to_h.should == { :something => { :key => 'value' } }
     end
   end
-  describe 'calling a method with a block, but no parameter' do
+  describe '.something do |param| ... end' do
+    it "doesn't allow implicit access" do
+      expect {
+        configuration.something do |something|
+          foo 'bar'
+        end
+      }.to raise_error
+    end
+    it "represents a configuration, one level deeper" do
+      result = nil
+      configuration.something do |something|
+        result = something
+      end
+
+      result.should be_instance_of(described_class)
+    end   
     it 'stores the value correctly' do
-      configuration.something do
-        key 'value'
+      configuration.something do |cfg|
+        cfg.key 'value'
       end
       
       configuration.to_h.should == { :something => { :key => 'value' } }
@@ -97,5 +112,18 @@ describe Bocuse::Configuration do
       
       # configuration.to_h.should == { :something => ["hello"] } # This might be expected by a user.
     end
+  end
+  describe '#dup' do
+    before(:each) { 
+      configuration.foo do
+        bar []
+      end }
+    let(:dup) { configuration.dup }
+    it "is performed in depth" do
+      configuration[:foo][:bar].should_not equal(dup[:foo][:bar])
+    end
+    it "returns a duplicate" do
+      configuration.to_h.should == dup.to_h
+    end 
   end
 end
