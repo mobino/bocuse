@@ -17,10 +17,7 @@ module Bocuse
     def initialize(hash=nil, &block)
       @store = hash && hash.dup || Hash.new
       
-      if block
-        block.call(self) if block.arity>0
-        instance_eval(&block) if block.arity == 0
-      end
+      call(block) if block
     end
     
     # Explicit accessor for POROs.
@@ -82,16 +79,25 @@ module Bocuse
     # Performs a deep duplication of this configuration object. This is mainly
     # used by the user for quickly generating a lot of copies of a template.
     # 
-    def dup
+    def dup(&block)
       dup_cfg = Configuration.new
 
       store.each do |key, value|
         dup_cfg[key] = value.dup
       end
 
+      dup_cfg.call(block) if block
       dup_cfg
     end
     
+    # Executes the block such that it may modify this object. 
+    #
+    def call(block)
+      fail ArgumentError unless block
+
+      block.call(self) if block.arity>0
+      instance_eval(&block) if block.arity == 0
+    end
   end
   
 end

@@ -130,11 +130,19 @@ describe Bocuse::Configuration do
         bar []
       end }
     let(:dup) { configuration.dup }
+    
     it "is performed in depth" do
       configuration[:foo][:bar].should_not equal(dup[:foo][:bar])
     end
     it "returns a duplicate" do
       configuration.to_h.should == dup.to_h
+    end 
+    it "takes a block, allowing modification of the result" do
+      dup = configuration.dup do |cfg|
+        cfg.baz 'this is new'
+      end
+      
+      dup[:baz].should == 'this is new'
     end 
   end
 end
