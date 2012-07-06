@@ -14,8 +14,8 @@ module Bocuse
     attr_reader :store,
                 :unresolved_block
     
-    def initialize(&block)
-      @store = {}
+    def initialize(hash=nil, &block)
+      @store = hash && hash.dup || Hash.new
       
       if block
         block.call(self) if block.arity>0
@@ -73,7 +73,7 @@ module Bocuse
     def to_h
       copy = {}
       store.each do |key, value|
-        value = value.to_h
+        value = value.to_h if value.respond_to?(:to_h)
         copy[key] = value if value
       end
       copy

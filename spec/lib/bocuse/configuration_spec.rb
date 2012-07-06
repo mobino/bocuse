@@ -5,6 +5,17 @@ require 'spec_helper'
 describe Bocuse::Configuration do
 
   let(:configuration) { described_class.new }
+
+  describe 'construction' do
+    it "constructs given a hash" do
+      h = { foo: 'bar' }
+      
+      config = described_class.new(h)
+      
+      config.to_h.should == h
+      config.to_h.should_not equal(h)
+    end 
+  end
   
   describe 'uninitialized values' do
     it 'will be ignored' do
@@ -13,7 +24,7 @@ describe Bocuse::Configuration do
       configuration.to_h.should == {}
     end
   end
-  describe 'calling a method with neither parameter nor block' do
+  describe '.something as a value' do
     it 'returns the right value' do
       configuration.something.to_h.should == nil # Bocuse::Value::Empty is returned as nil
     end
@@ -49,7 +60,7 @@ describe Bocuse::Configuration do
       configuration.to_h.should == { :something => { :key => nil } }
     end
   end
-  describe 'calling a method with a parameter, but no block' do
+  describe '.something "value"' do
     it 'stores the value correctly' do
       configuration.something 'value'
       
@@ -89,7 +100,7 @@ describe Bocuse::Configuration do
       configuration.to_h.should == { :something => { :key => 'value' } }
     end
   end
-  describe 'configuration is accessible' do
+  describe '#[]' do
     it 'offers a [] method' do
       configuration[:something].should == nil
     end
