@@ -6,30 +6,37 @@ Bocuse is a special kind of chef - A front-end language to chef-solo.
 
 STATUS
 
-Very early alpha - will break your servers.
+Version 0.1.0 - This works for us. No warranties implied.
 
 USAGE
 
-1. Create a structure
+The workflow will be 
+  BOCUSE -> (bocuse compile) -> JSON -> (chef-solo) -> Machine Configuration
+  
+A bocuse configuration is hosted below config and looks like this:
 
-    ./config
-      /nodes/nodename*
-      /nodes/namespace/nodename*
-      ...
-      /templates/templatename*
-      /templates/namespace/templatename*
-      ...
+  config/
+    nodes/      # where all node descriptions live
+    templates/  # where your templates live
+    lib/        # helper code, will be in $:
+    
+To get started, create a file called 'config/node/a.rb' and put this into it: 
 
-Nodes are files with one or more node configurations in it.
-Templates are "partial" configurations that are shared.
+  node 'a' do |cfg|
+    cfg.ip '1.2.3.4'
+  end
+  
+If you now run 
+  
+  bocuse compile a
+  
+from the top-level directory, you'll get a JSON configuration like this one: 
 
-2. Run `bocuse pattern`
+  {"ip":"1.2.3.4"}
+  
+as output. 
 
-This will spit out configurations of all nodes matching the pattern. (Note
-that all files in ./config/nodes/... will be read)
-
-Templates can be included in node definitions using `include_template
-:templatename` or `include_template 'templatename'`.
+Please see the examples directory for more examples. 
 
 HACKING
 
