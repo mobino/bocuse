@@ -11,8 +11,16 @@ Gem::Specification.new do |s|
 
   s.homepage = 'http://github.com/mobino/bocuse'
 
-  s.description = 'A front-end language to chef-solo.'
   s.summary = 'A front-end language to chef-solo.'
+  s.description = <<-EOD
+    bocuse teaches chef-solo a few tricks. A strict front-end to chef-solo, 
+    it reads a configuration syntax that is under source control and 
+    generates JSON for chef-solo.
+
+    This library puts the full power of Ruby at your fingertips when composing
+    configuration for your nodes using templates and helpers. It is the 
+    missing link between puppet and chef. 
+  EOD
 
   s.executables = ['bocuse']
   s.default_executable = 'bocuse'
