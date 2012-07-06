@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+require 'multi_json'
+
 describe "CLI:" do
   describe 'compile NODE_FQDN' do
     it "parses nodes and outputs a single nodes JSON" do
@@ -7,8 +9,13 @@ describe "CLI:" do
       
       # Explicitly call the current binary.
       #
-      `../../../bin/bocuse compile complex.production.example.com`.should == 
-        "{\"recipes\":[\"nginx\",\"git\",\"app::install\",\"app::deploy\"],\"key_location\":\"/Users/admin/temp/bocuse/spec/files/complex/config/nodes/production/key.txt\"}\n"
+      
+      MultiJson.load(`#{project_path('bin/bocuse')} \
+        compile complex.production.example.com`).should == 
+        {
+          "recipes"=>["nginx", "git", "app::install", "app::deploy"], 
+          "key_location" => 
+            "/Users/kschiess/git/own/bocuse/spec/files/complex/config/nodes/production/key.txt"}
     end
   end
 end

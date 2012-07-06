@@ -14,9 +14,13 @@ module Bocuse
     attr_reader :store,
                 :unresolved_block
     
-    def initialize
+    def initialize(&block)
       @store = {}
-      instance_eval(&Proc.new) if block_given?
+      
+      if block
+        block.call(self) if block.arity>0
+        instance_eval(&block) if block.arity == 0
+      end
     end
     
     # Explicit accessor for POROs.

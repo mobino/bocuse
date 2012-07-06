@@ -7,6 +7,7 @@ describe 'helpers example' do
     it 'works' do
       configuration = project.nodes['node']      
       configuration[:foo].should == 'bar'
+      configuration[:nested][:foo].should == 'bar'
     end
   end
 
