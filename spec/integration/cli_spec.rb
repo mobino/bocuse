@@ -7,15 +7,11 @@ describe "CLI:" do
     it "parses nodes and outputs a single nodes JSON" do
       Dir.chdir File.expand_path('../../files/complex', __FILE__)
       
-      # Explicitly call the current binary.
-      #
-      
-      MultiJson.load(`#{project_path('bin/bocuse')} \
-        compile complex.production.example.com`).should == 
-        {
-          "recipes"=>["nginx", "git", "app::install", "app::deploy"], 
-          "key_location" => 
-            "/Users/kschiess/git/own/bocuse/spec/files/complex/config/nodes/production/key.txt"}
+      compiled = MultiJson.load(`#{project_path('bin/bocuse')} \
+        compile complex.production.example.com`)
+      compiled.size.should == 2
+      compiled['recipes'].should == ['nginx', 'git', 'app::install', 'app::deploy'];
+      compiled['key_location'].should match(%r{spec/files/complex/config/nodes/production/key.txt$})
     end
   end
 end
