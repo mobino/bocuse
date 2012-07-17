@@ -11,7 +11,9 @@ class BocuseCLI < Thor
   def compile(node_fqdn)
     project     = Bocuse::Project.new(Dir.pwd)
     node_config = project.nodes[node_fqdn]
-        
+    
+    raise "Cannot find node description for node '#{node_fqdn}' in any file in config/nodes." unless node_config
+    
     puts MultiJson.encode node_config.to_h
   end
 end
