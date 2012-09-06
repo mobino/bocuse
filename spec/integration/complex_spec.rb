@@ -51,7 +51,14 @@ describe 'complex example with templates' do
         find { |name, _| name == 'complex.production.example.com' }.
         last
         
-      config.to_h[:recipes].should =~ %w(nginx git app::install app::deploy)
+      config.to_h[:recipes].should =~ %w(nginx git app::install app::deploy my_service)
     end 
+    it "configures my_service at the same time" do
+      config = project.nodes.
+        find { |name, _| name == 'complex.production.example.com' }.
+        last
+        
+      config.to_h[:my_service].should == { :foo => 'bar' }
+    end
   end
 end

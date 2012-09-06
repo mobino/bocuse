@@ -9,7 +9,7 @@ describe "CLI:" do
       
       compiled = MultiJson.load(`#{project_path('bin/bocuse')} \
         compile complex.production.example.com`)
-      compiled.size.should == 2
+      compiled.size.should == 3
       compiled['recipes'].should == ['nginx', 'git', 'app::install', 'app::deploy'];
       compiled['key_location'].should match(%r{spec/files/complex/config/nodes/production/key.txt$})
     end

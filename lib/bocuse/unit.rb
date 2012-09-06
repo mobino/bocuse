@@ -21,8 +21,9 @@ module Bocuse
     
     # Cook adds to the toplevel recipes of this file's configuration.
     #
-    def cook recipe
+    def cook recipe, &block
       current_configuration.recipes << recipe
+      current_configuration.send(recipe, &block)
     end
     
     # Make the given module a helper module for this node. 

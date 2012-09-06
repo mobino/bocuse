@@ -1,5 +1,10 @@
 VERSION HISTORY
 
+= v0.1.1
+
+  * Syntax sugar for 'cook foo, cfg.foo do ... end'. Append the block to cook
+    directly. 
+
 = v0.1.0
 
   * Nodes/Templates
