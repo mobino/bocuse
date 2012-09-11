@@ -1,3 +1,5 @@
+require 'blankslate'
+
 module Bocuse
   
   # This is the core class of bocuse.
@@ -9,7 +11,10 @@ module Bocuse
   # It will mainly return proxies that will lodge themselves in its internal
   # hash. The proxies usually represent an internal hash value.
   #
-  class Configuration
+  class Configuration < BlankSlate
+    
+    reveal :respond_to?
+    reveal :send
     
     attr_reader :store,
                 :unresolved_block

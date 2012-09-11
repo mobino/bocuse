@@ -38,21 +38,21 @@ describe Bocuse::Configuration do
       
       configuration.something.to_h.should == 'value' # <= This is the tested getter.
     end
-    it 'is modifiable in place' do
+    it 'is modifiable in place (#<<)' do
       something = configuration.something
       
       something << "hello"
       
       configuration.something.to_h.should == ["hello"]
     end
-    it 'is modifiable in place' do
+    it 'is modifiable in place (#[])' do
       something = configuration.something
       
       something[:key] = "value"
       
       configuration.something.to_h.should == { :key => 'value' }
     end
-    it 'is modifiable in place' do
+    it 'is modifiable in place (#=)' do
       something = configuration.something
       
       something[:key] = nil # Explicit nil.
@@ -144,5 +144,11 @@ describe Bocuse::Configuration do
       
       dup[:baz].should == 'this is new'
     end 
+  end
+  describe "method name edge cases" do
+    it "allows #method as a key" do
+      configuration.method :foo
+      configuration.to_h.should == { method: :foo }
+    end
   end
 end

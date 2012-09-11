@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
 
   s.name = 'bocuse'
-  s.version = '0.1.1'
+  s.version = '0.1.2'
 
   s.authors = ['Florian Hanke', 'Kaspar Schiess', 'Jens-Christian Fischer']
   s.email   = ['florian.hanke@technologyastronauts.ch', 
@@ -35,4 +35,5 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'multi_json', '>=1.0.0'
   s.add_runtime_dependency 'thor', '~> 0.15'
+  s.add_runtime_dependency 'blankslate', '3.1.2'
 end

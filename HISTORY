@@ -1,5 +1,9 @@
 VERSION HISTORY
 
+= v0.1.2
+
+  * Allows 'method' and other standard Ruby methods as keys in pseudo-hashes. 
+
 = v0.1.1
 
   * Syntax sugar for 'cook foo, cfg.foo do ... end'. Append the block to cook
