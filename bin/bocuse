@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby -W0
-#
+# Encoding: UTF-8
 
 require 'thor'
 
