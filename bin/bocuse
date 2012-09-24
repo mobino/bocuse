@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby -W0
 # Encoding: UTF-8
 
+$VERBOSE=nil
+
 require 'thor'
 
 $:.unshift File.expand_path '../../lib', __FILE__
