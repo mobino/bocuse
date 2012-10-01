@@ -1,5 +1,10 @@
 VERSION HISTORY
 
+= v0.2.0 
+
+  * Adds a 'bocuse' hash, containing relevant information about the current
+    node and project. Currently only :node_name will be defined. 
+
 = v0.1.2
 
   * Allows 'method' and other standard Ruby methods as keys in pseudo-hashes. 
