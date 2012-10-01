@@ -36,7 +36,7 @@ describe Bocuse::Project do
       project.register_template template, :configuration }
       
     it "returns the template" do
-      project.template('foo/bar').should == :configuration
+      project.lookup_template('foo/bar').should == :configuration
     end 
   end
 end

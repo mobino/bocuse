@@ -1,5 +1,7 @@
 require 'pathname'
 
+require 'bocuse/project_context'
+
 module Bocuse
   # A bocuse project comes in two flavours: simple and co-located with chef.
   # The simple project is a directory with the subdirectories 
@@ -53,7 +55,8 @@ module Bocuse
       path = Pathname.new(path)
       path = base_path.join(path) unless path.absolute?
       
-      Bocuse::File.new(path, self)
+      ctx = ProjectContext.new(self)
+      Bocuse::File.new(path, ctx)
     end
     
     # Evaluates a file given by path. 
@@ -92,7 +95,7 @@ module Bocuse
     #   foo               -> templates/foo.rb
     #   /templates/bar    -> /usr/templates/bar.rb
     #
-    def template name
+    def lookup_template name
       unless @templates.has_key?(name.to_sym)
         file_name = name.to_s
         file_name += '.rb' unless file_name.end_with?('.rb')

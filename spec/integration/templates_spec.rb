@@ -8,7 +8,7 @@ describe 'Templates' do
   describe 'loading' do
     it 'works' do
       config = Bocuse::Configuration.new
-      project.template(:users).call(config)
+      project.lookup_template(:users).call(config)
       
       config.to_h.should == {
         :user => "root",
