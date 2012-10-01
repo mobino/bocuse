@@ -3,12 +3,13 @@
 require 'spec_helper'
 
 describe 'Templates' do
+  let(:context) { flexmock('context') }
   let(:project) { Bocuse::Project.new(fixture('complex')) }
 
   describe 'loading' do
     it 'works' do
       config = Bocuse::Configuration.new
-      project.lookup_template(:users).call(config)
+      project.lookup_template(:users).call(config, context)
       
       config.to_h.should == {
         :user => "root",
