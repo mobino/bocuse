@@ -41,5 +41,13 @@ module Bocuse
 
       template_block.call(current_configuration)
     end
+    
+    # Exposes some of bocuses internal variables to the node that is currently
+    # compiled. This allows using node name (, etc...) for formulating clever
+    # node configurations.
+    #
+    def bocuse
+      @context.bocuse
+    end
   end
 end

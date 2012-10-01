@@ -1,4 +1,6 @@
 
+require 'bocuse/node_context'
+
 # Represents a bocuse File. 
 #
 # This is usually a file that contains one or more of the
@@ -36,12 +38,15 @@ class Bocuse::File
   # The files read by #evaluate will trigger these methods.
   #
   def node name
-    unit = Bocuse::Unit.new(Proc.new, @context)
+    node_context = Bocuse::NodeContext.new(name, @context)
+    configuration = Bocuse::Configuration.new
 
-    configuration_block do |configuration|
-      unit.call(configuration)
-      @context.register_node name, configuration
-    end
+    unit = Bocuse::Unit.new(Proc.new, node_context)
+    unit.call(configuration)
+
+    @context.register_node name, configuration
+    
+    return configuration
   end
   def template
     # Delay template evaluation until someone tries to call include_template.
@@ -50,23 +55,5 @@ class Bocuse::File
     unit = Bocuse::Unit.new(Proc.new, @context)
     @context.register_template path, unit
     unit
-  end
-private
-  def configuration_block
-    # NOTE since thread-safety is not an issue here (who would use threads
-    # to define configuration?), we can use a simple file-global state to
-    # keep track of which configuration is in progress. We use the begin-end
-    # construct to make sure that configurations are not used beyond the end
-    # of the node block. 
-
-    configuration = @current_configuration = Bocuse::Configuration.new
-  
-    begin
-      yield configuration
-    ensure
-      @current_configuration = nil
-    end
-  
-    configuration
   end
 end
