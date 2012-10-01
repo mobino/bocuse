@@ -44,7 +44,7 @@ describe Bocuse::File do
       end
       
       config = Bocuse::Configuration.new
-      template.call config
+      template.call config, context
       
       config.to_h.should == { :something => :value, :something_else => { :key => "value" } }
     end

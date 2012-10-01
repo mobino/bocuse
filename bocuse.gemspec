@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
 
   s.name = 'bocuse'
-  s.version = '0.2.0'
+  s.version = '0.2.1'
 
   s.authors = ['Florian Hanke', 'Kaspar Schiess', 'Jens-Christian Fischer']
   s.email   = ['florian.hanke@technologyastronauts.ch', 
@@ -29,11 +29,13 @@ Gem::Specification.new do |s|
   s.test_files = Dir['spec/**/*_spec.rb']
 
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'guard'
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'flexmock'
+  s.add_development_dependency 'rb-fsevent'
+  s.add_development_dependency 'growl'
 
   s.add_runtime_dependency 'multi_json', '>=1.0.0'
   s.add_runtime_dependency 'thor', '~> 0.15'
   s.add_runtime_dependency 'blankslate', '3.1.2'
+  s.add_runtime_dependency 'hashie', '~> 1.2.0'
 end

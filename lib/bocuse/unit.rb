@@ -2,29 +2,27 @@ module Bocuse
   # A configuration unit. 
   #
   class Bocuse::Unit
-    # Returns the current configuration, but only during a call to this unit. 
-    attr_reader :current_configuration
-    
-    def initialize(block, project, context)
+    def initialize(block, project)
       @block = block
-      @context = context
       @project = project
     end
     
-    def call(configuration)
-      @current_configuration = configuration
+    def call(configuration, context)
+      @configuration = configuration
+      @context = context
       
       # Fill in the config hash argument if the block cares at all.
       instance_exec(configuration, &@block)
     ensure 
-      @current_configuration = nil
+      @configuration = nil
+      @context = nil
     end
     
     # Cook adds to the toplevel recipes of this file's configuration.
     #
     def cook recipe, &block
-      current_configuration.recipes << recipe
-      current_configuration.send(recipe, &block)
+      @configuration.recipes << recipe
+      @configuration.send(recipe, &block)
     end
     
     # Make the given module a helper module for this node. 
@@ -40,7 +38,7 @@ module Bocuse
     def include_template identifier
       template_block = @project.lookup_template identifier
 
-      template_block.call(current_configuration)
+      template_block.call(@configuration, @context)
     end
     
     # Exposes some of bocuses internal variables to the node that is currently

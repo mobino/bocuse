@@ -1,11 +1,13 @@
 VERSION HISTORY
 
-= v0.2.0 
+= v0.2.X 
 
   * Adds a 'bocuse' hash, containing relevant information about the current
     node and project. Currently only :node_name will be defined. 
 
   ! Remove all Ruby warnings. 
+  
+  * Also allows bocuse hash in the context of a template. 
 
 = v0.1.2
 

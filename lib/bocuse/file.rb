@@ -38,8 +38,8 @@ class Bocuse::File
     node_context = Bocuse::NodeContext.new(name, @context)
     configuration = Bocuse::Configuration.new
 
-    unit = Bocuse::Unit.new(Proc.new, @project, node_context)
-    unit.call(configuration)
+    unit = Bocuse::Unit.new(Proc.new, @project)
+    unit.call(configuration, node_context)
 
     @project.register_node name, configuration
     
@@ -49,7 +49,7 @@ class Bocuse::File
     # Delay template evaluation until someone tries to call include_template.
     # At that time, we'll have a configuration object to have the template
     # manipulate. 
-    unit = Bocuse::Unit.new(Proc.new, @project, @context)
+    unit = Bocuse::Unit.new(Proc.new, @project)
     @project.register_template path, unit
     unit
   end
