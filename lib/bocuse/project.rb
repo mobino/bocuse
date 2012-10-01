@@ -55,8 +55,8 @@ module Bocuse
       path = Pathname.new(path)
       path = base_path.join(path) unless path.absolute?
       
-      ctx = ProjectContext.new(self)
-      Bocuse::File.new(path, ctx)
+      ctx = ProjectContext.new
+      Bocuse::File.new(path, self, ctx)
     end
     
     # Evaluates a file given by path. 

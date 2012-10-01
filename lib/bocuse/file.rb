@@ -13,12 +13,9 @@ require 'bocuse/node_context'
 class Bocuse::File
   attr_reader :path
 
-  # When inside a construct that has a configuration associated, this will 
-  # return that configuration instance.
-  attr_reader :current_configuration
-
-  def initialize(path, context)
+  def initialize(path, project, context)
     @path = path
+    @project = project
     @context = context
   end
     
@@ -41,10 +38,10 @@ class Bocuse::File
     node_context = Bocuse::NodeContext.new(name, @context)
     configuration = Bocuse::Configuration.new
 
-    unit = Bocuse::Unit.new(Proc.new, node_context)
+    unit = Bocuse::Unit.new(Proc.new, @project, node_context)
     unit.call(configuration)
 
-    @context.register_node name, configuration
+    @project.register_node name, configuration
     
     return configuration
   end
@@ -52,8 +49,8 @@ class Bocuse::File
     # Delay template evaluation until someone tries to call include_template.
     # At that time, we'll have a configuration object to have the template
     # manipulate. 
-    unit = Bocuse::Unit.new(Proc.new, @context)
-    @context.register_template path, unit
+    unit = Bocuse::Unit.new(Proc.new, @project, @context)
+    @project.register_template path, unit
     unit
   end
 end

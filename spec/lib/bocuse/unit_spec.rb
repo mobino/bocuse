@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe Bocuse::Unit do
   let(:context) { flexmock('context', bocuse: {node_name: 'test.of.bocuse'}) }
+  let(:project) { flexmock('project') }
   def unit(configuration)
-    described_class.new(Proc.new, context).
+    described_class.new(Proc.new, project, context).
       tap { |unit| unit.call(configuration) }
   end
   

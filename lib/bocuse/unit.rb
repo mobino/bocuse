@@ -5,9 +5,10 @@ module Bocuse
     # Returns the current configuration, but only during a call to this unit. 
     attr_reader :current_configuration
     
-    def initialize(block, context)
+    def initialize(block, project, context)
       @block = block
       @context = context
+      @project = project
     end
     
     def call(configuration)
@@ -37,7 +38,7 @@ module Bocuse
     # Note: This could be pushed to the configuration.
     #
     def include_template identifier
-      template_block = @context.template identifier
+      template_block = @project.lookup_template identifier
 
       template_block.call(current_configuration)
     end
