@@ -41,7 +41,7 @@ describe 'complex example with templates' do
           :address => "1.1.1.1"
         },
         :empty => true,
-        :recipes => ["nginx", "git", "app::install", "app::deploy"]
+        :recipes => ["app::install", "app::deploy"]
       }
     end
   end

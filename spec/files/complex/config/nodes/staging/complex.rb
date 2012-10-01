@@ -1,7 +1,6 @@
 # This is a test example that contains all relevant cases.
 #
 node "test.staging.example.com" do |cfg|
-  include_template :cooking
   include_template :users
   include_template 'subdirectory/empty'
   
