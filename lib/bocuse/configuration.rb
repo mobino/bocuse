@@ -14,7 +14,7 @@ module Bocuse
   class Configuration < BlankSlate
     
     reveal :respond_to?
-    reveal :send
+    reveal :public_send
     
     attr_reader :store,
                 :unresolved_block

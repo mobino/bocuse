@@ -22,7 +22,7 @@ module Bocuse
     #
     def cook recipe, &block
       @configuration.recipes << recipe
-      @configuration.send(recipe, &block)
+      @configuration.public_send(recipe, &block)
     end
     
     # Make the given module a helper module for this node. 
