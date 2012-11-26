@@ -34,8 +34,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rb-fsevent'
   s.add_development_dependency 'growl'
 
-  s.add_runtime_dependency 'multi_json', '>=1.0.0'
+  s.add_runtime_dependency 'multi_json', '~> 1.0'
   s.add_runtime_dependency 'thor', '~> 0.15'
-  s.add_runtime_dependency 'blankslate', '3.1.2'
-  s.add_runtime_dependency 'hashie', '~> 1.2.0'
+  s.add_runtime_dependency 'blankslate', '~> 3.1'
+  s.add_runtime_dependency 'hashie', '~> 1.2'
 end
